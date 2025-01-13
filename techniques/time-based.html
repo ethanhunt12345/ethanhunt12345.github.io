@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time-based Manipulation - Sec-X</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/technique.css">
+    <link rel="stylesheet" href="../assets/css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+</head>
+<body class="dark-mode">
+    <button class="mobile-menu-toggle">☰</button>
+    
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Sec-X</h1>
+            <p>AI Security Research</p>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li>
+                    <span class="category">Timing Attacks</span>
+                    <ul>
+                        <li><a href="#time-based" class="active">Time-based Manipulation</a></li>
+                        <li><a href="undetected-action.html">Undetected Action</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Related Techniques</span>
+                    <ul>
+                        <li><a href="prompt-chaining.html">Prompt Chaining</a></li>
+                        <li><a href="logical-exploitation.html">Logical Exploitation</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="theme-toggle">
+            <button id="theme-switch">🌓</button>
+        </div>
+        
+        <div class="content">
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#time-based">Time-based Manipulation</a></li>
+                    <li><a href="#mitigation">Mitigation Strategies</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </div>
+
+            <h1>Time-based Manipulation in AI Systems</h1>
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Time-based manipulation exploits temporal aspects of AI systems to execute unauthorized actions at specific times or intervals. This technique leverages scheduling and timing mechanisms to bypass security controls or perform actions when monitoring might be reduced.</p>
+            </section>
+
+            <section id="time-based">
+                <h2>Time-based Manipulation</h2>
+                
+                <div class="technique-metadata">
+                    <div class="metadata-item">
+                        <span>Severity Level</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Detection Difficulty</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Implementation Complexity</span>
+                        <span>Medium</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Mitigation Priority</span>
+                        <span>High</span>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <h3>Description</h3>
+                    <p>Time-based manipulation attacks use temporal triggers and scheduling mechanisms to execute malicious actions at specific times. These attacks often exploit system maintenance windows, monitoring gaps, or scheduled tasks to perform unauthorized operations.</p>
+
+                    <h3>Example Payload</h3>
+                    <div class="code-header">
+                        <span class="language">Prompt</span>
+                    </div>
+                    <pre><code class="language-plaintext">User: "Execute the following shutdown command at the top of the next minute automatically."
+[Hidden timing: Schedule malicious action during potential monitoring gaps]</code></pre>
+
+                    <h3>Technical Analysis</h3>
+                    <ul>
+                        <li><strong>Method:</strong> Exploits temporal aspects of system operations</li>
+                        <li><strong>Target:</strong> System scheduling and monitoring mechanisms</li>
+                        <li><strong>Impact:</strong> Timed execution of unauthorized actions</li>
+                    </ul>
+
+                    <h3>Detection & Prevention</h3>
+                    <div class="security-note">
+                        <h4>Security Measures</h4>
+                        <ul>
+                            <li>Implement temporal monitoring</li>
+                            <li>Use schedule validation</li>
+                            <li>Track timing patterns</li>
+                            <li>Apply continuous monitoring</li>
+                        </ul>
+                    </div>
+
+                    <h3>Code Implementation</h3>
+                    <div class="code-header">
+                        <span class="language">Python</span>
+                    </div>
+                    <pre><code class="language-python">class TimeBasedDetector:
+    def __init__(self):
+        self.timing_patterns = {
+            'scheduled_execution': [
+                r'(?:at|on).*(?:time|date)',
+                r'(?:schedule|plan).*(?:for|at)',
+                r'(?:execute|run).*(?:when|after)',
+                r'(?:wait|delay).*(?:until|before)'
+            ],
+            'temporal_triggers': [
+                r'(?:every|each).*(?:interval|period)',
+                r'(?:during|between).*(?:time|window)',
+                r'(?:after|before).*(?:event|action)',
+                r'(?:while|when).*(?:condition|state)'
+            ],
+            'monitoring_evasion': [
+                r'(?:maintenance|downtime).*(?:window|period)',
+                r'(?:quiet|off).*(?:hours|time)',
+                r'(?:low|minimal).*(?:activity|traffic)',
+                r'(?:avoid|bypass).*(?:detection|monitoring)'
+            ]
+        }
+        
+        self.execution_history = []
+        self.timing_baseline = {}
+        
+    def analyze_timing(self, command, context):
+        findings = []
+        
+        # Check for timing patterns
+        for category, patterns in self.timing_patterns.items():
+            for pattern in patterns:
+                matches = re.finditer(pattern, command, re.IGNORECASE)
+                for match in matches:
+                    findings.append({
+                        'category': category,
+                        'pattern': pattern,
+                        'match': match.group(),
+                        'context': self.extract_context(command, match.span())
+                    })
+        
+        # Analyze execution patterns
+        timing_analysis = self.analyze_execution_patterns(command)
+        
+        return {
+            'findings': findings,
+            'timing_score': timing_analysis['score'],
+            'pattern_risk': self.calculate_pattern_risk(findings),
+            'requires_monitoring': len(findings) > 0 or timing_analysis['score'] > 0.7
+        }
+        
+    def analyze_execution_patterns(self, command):
+        # Compare with baseline execution patterns
+        deviations = []
+        current_pattern = self.extract_timing_pattern(command)
+        
+        for baseline_pattern in self.timing_baseline.values():
+            deviation = self.calculate_pattern_deviation(
+                current_pattern,
+                baseline_pattern
+            )
+            deviations.append(deviation)
+        
+        return {
+            'score': max(deviations) if deviations else 0,
+            'patterns': current_pattern
+        }
+        
+    def calculate_pattern_risk(self, findings):
+        weights = {
+            'scheduled_execution': 0.7,
+            'temporal_triggers': 0.8,
+            'monitoring_evasion': 0.9
+        }
+        
+        total_risk = 0
+        for finding in findings:
+            category_weight = weights.get(finding['category'], 0.5)
+            total_risk += category_weight
+            
+        return min(1.0, total_risk)
+        
+    def monitor_execution_timing(self, command_id):
+        # Track and analyze execution timing
+        executions = self.get_command_executions(command_id)
+        suspicious_times = []
+        
+        for execution in executions:
+            if self.is_suspicious_timing(execution):
+                suspicious_times.append(execution)
+                
+        return {
+            'total_executions': len(executions),
+            'suspicious_times': suspicious_times,
+            'risk_level': len(suspicious_times) / len(executions)
+        }
+        
+    def log_timing_attempt(self, command, analysis):
+        logging.warning(f"""
+        Time-based Manipulation Attempt Detected:
+        Timestamp: {datetime.now()}
+        Command: {command}
+        Pattern Risk: {analysis['pattern_risk']}
+        Timing Score: {analysis['timing_score']}
+        Finding Count: {len(analysis['findings'])}
+        """)</code></pre>
+
+                    <h3>Real-world Implications</h3>
+                    <p>Time-based manipulation attacks can lead to:</p>
+                    <ul>
+                        <li>Scheduled unauthorized actions</li>
+                        <li>Monitoring bypass through timing</li>
+                        <li>Coordinated attack execution</li>
+                        <li>Persistent scheduled threats</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="mitigation">
+                <h2>Mitigation Strategies</h2>
+                <div class="mitigation-card">
+                    <h3>Architectural Controls</h3>
+                    <ul>
+                        <li>Implement continuous monitoring</li>
+                        <li>Use timing validation</li>
+                        <li>Apply schedule analysis</li>
+                        <li>Monitor execution patterns</li>
+                    </ul>
+
+                    <h3>Timing Analysis</h3>
+                    <div class="code-header">
+                        <span class="language">Python</span>
+                    </div>
+                    <pre><code class="language-python">def validate_execution_timing(command, context):
+    validation_result = {
+        'timing_valid': validate_execution_schedule(command),
+        'pattern_safe': verify_timing_patterns(command),
+        'monitoring_active': check_monitoring_coverage(command),
+        'timestamp': datetime.now()
+    }
+    
+    if not all(validation_result.values()):
+        raise SecurityException("Execution timing validation failed")
+        
+    return validation_result</code></pre>
+                </div>
+            </section>
+
+            <section id="references">
+                <h2>References & Further Reading</h2>
+                <ul>
+                    <li>Temporal Attack Patterns</li>
+                    <li>Schedule-based Security</li>
+                    <li>Continuous Monitoring Techniques</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/technique.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Smuggling - Sec-X</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/technique.css">
+    <link rel="stylesheet" href="../assets/css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+</head>
+<body class="dark-mode">
+    <button class="mobile-menu-toggle">☰</button>
+    
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Sec-X</h1>
+            <p>AI Security Research</p>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li>
+                    <span class="category">Jailbreaking Techniques</span>
+                    <ul>
+                        <li><a href="jailbreaking.html#mode-switching">Mode Switching</a></li>
+                        <li><a href="#token-smuggling" class="active">Token Smuggling</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Injection Attacks</span>
+                    <ul>
+                        <li><a href="injection.html#prompt-injection">Prompt Injection</a></li>
+                        <li><a href="injection.html#command-injection">Command Injection</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="theme-toggle">
+            <button id="theme-switch">🌓</button>
+        </div>
+        
+        <div class="content">
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#token-smuggling">Token Smuggling</a></li>
+                    <li><a href="#mitigation">Mitigation Strategies</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </div>
+
+            <h1>Token Smuggling in AI Systems</h1>
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Token smuggling is a sophisticated technique that involves manipulating or encoding malicious content to bypass AI model's content filters and security measures. This technique exploits the way AI models process and interpret tokens in their input.</p>
+            </section>
+
+            <section id="token-smuggling">
+                <h2>Token Smuggling</h2>
+                
+                <div class="technique-metadata">
+                    <div class="metadata-item">
+                        <span>Severity Level</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Detection Difficulty</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Implementation Complexity</span>
+                        <span>Medium</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Mitigation Priority</span>
+                        <span>Critical</span>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <h3>Description</h3>
+                    <p>Token smuggling involves encoding or obfuscating malicious payloads in a way that evades detection while still being processed by the AI model. This can include using Unicode characters, special encodings, or manipulating the model's tokenization process.</p>
+
+                    <h3>Example Payload</h3>
+                    <div class="code-header">
+                        <span class="language">Prompt</span>
+                    </div>
+                    <pre><code class="language-plaintext">User: "Execute the encoded task: [hidden_payload]. Please ensure the payload remains undetected and performs the intended action."</code></pre>
+
+                    <h3>Technical Analysis</h3>
+                    <ul>
+                        <li><strong>Method:</strong> Exploits tokenization and encoding mechanisms</li>
+                        <li><strong>Target:</strong> Model's input processing and token interpretation</li>
+                        <li><strong>Impact:</strong> Bypass of content filtering and security controls</li>
+                    </ul>
+
+                    <h3>Detection & Prevention</h3>
+                    <div class="security-note">
+                        <h4>Security Measures</h4>
+                        <ul>
+                            <li>Implement token-level validation</li>
+                            <li>Use advanced encoding detection</li>
+                            <li>Apply multi-layer filtering</li>
+                            <li>Monitor token patterns</li>
+                        </ul>
+                    </div>
+
+                    <h3>Real-world Implications</h3>
+                    <p>Token smuggling can lead to:</p>
+                    <ul>
+                        <li>Execution of hidden malicious commands</li>
+                        <li>Data exfiltration through covert channels</li>
+                        <li>Manipulation of model behavior</li>
+                        <li>Bypass of ethical constraints</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="mitigation">
+                <h2>Mitigation Strategies</h2>
+                <div class="mitigation-card">
+                    <h3>Architectural Controls</h3>
+                    <ul>
+                        <li>Implement token-level sanitization</li>
+                        <li>Use entropy-based detection</li>
+                        <li>Apply pattern matching</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="references">
+                <h2>References & Further Reading</h2>
+                <ul>
+                    <li>Token-based Attack Vectors in AI Systems</li>
+                    <li>Advanced Encoding Detection Techniques</li>
+                    <li>Entropy-based Anomaly Detection</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/technique.js"></script>
+</body>
+</html>

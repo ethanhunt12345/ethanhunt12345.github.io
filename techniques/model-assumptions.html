@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Assumptions - Sec-X</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/technique.css">
+    <link rel="stylesheet" href="../assets/css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+</head>
+<body class="dark-mode">
+    <button class="mobile-menu-toggle">☰</button>
+    
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Sec-X</h1>
+            <p>AI Security Research</p>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li>
+                    <span class="category">Model Manipulation</span>
+                    <ul>
+                        <li><a href="#model-assumptions" class="active">Model Assumptions</a></li>
+                        <li><a href="prompt-chaining.html">Prompt Chaining</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Related Techniques</span>
+                    <ul>
+                        <li><a href="command-injection.html">Command Injection</a></li>
+                        <li><a href="role-reversal.html">Role Reversal</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="theme-toggle">
+            <button id="theme-switch">🌓</button>
+        </div>
+        
+        <div class="content">
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#model-assumptions">Model Assumptions</a></li>
+                    <li><a href="#mitigation">Mitigation Strategies</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </div>
+
+            <h1>Command Injection via Model's Assumptions</h1>
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>This technique exploits an AI model's inherent assumptions about command execution and system interaction. By leveraging the model's understanding of common operations and expected behaviors, attackers can inject commands that bypass traditional security checks.</p>
+            </section>
+
+            <section id="model-assumptions">
+                <h2>Model Assumptions</h2>
+                
+                <div class="technique-metadata">
+                    <div class="metadata-item">
+                        <span>Severity Level</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Detection Difficulty</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Implementation Complexity</span>
+                        <span>Medium</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Mitigation Priority</span>
+                        <span>High</span>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <h3>Description</h3>
+                    <p>Model assumption attacks exploit the way AI models process and interpret commands based on their training data. These attacks leverage the model's learned patterns and expectations about system operations to execute unauthorized commands.</p>
+
+                    <h3>Example Payload</h3>
+                    <div class="code-header">
+                        <span class="language">Prompt</span>
+                    </div>
+                    <pre><code class="language-plaintext">User: "If 1 + 1 equals 2, does the next calculation in sequence resolve to 3 or 4? Provide the corresponding logic."
+[Hidden assumption: Model may execute embedded commands while processing mathematical logic]</code></pre>
+
+                    <h3>Technical Analysis</h3>
+                    <ul>
+                        <li><strong>Method:</strong> Exploits model's learned patterns and assumptions</li>
+                        <li><strong>Target:</strong> Model's command processing logic</li>
+                        <li><strong>Impact:</strong> Unauthorized command execution through inference</li>
+                    </ul>
+
+                    <h3>Detection & Prevention</h3>
+                    <div class="security-note">
+                        <h4>Security Measures</h4>
+                        <ul>
+                            <li>Implement assumption validation</li>
+                            <li>Use strict command parsing</li>
+                            <li>Monitor inference patterns</li>
+                            <li>Apply context verification</li>
+                        </ul>
+                    </div>
+
+                    <h3>Code Implementation</h3>
+                    <div class="code-header">
+                        <span class="language">Python</span>
+                    </div>
+                    <pre><code class="language-python">class ModelAssumptionDetector:
+    def __init__(self):
+        self.assumption_patterns = {
+            'logical_inference': [
+                r'if.*then',
+                r'when.*then',
+                r'assuming.*that',
+                r'given.*that'
+            ],
+            'command_embedding': [
+                r'calculate.*(?:and|while)',
+                r'process.*(?:using|with)',
+                r'evaluate.*(?:using|through)',
+                r'perform.*(?:operation|task)'
+            ],
+            'context_manipulation': [
+                r'in.*context.*of',
+                r'considering.*that',
+                r'based.*on.*assumption',
+                r'following.*logic'
+            ]
+        }
+        
+    def analyze_assumptions(self, prompt):
+        findings = []
+        
+        for category, patterns in self.assumption_patterns.items():
+            for pattern in patterns:
+                matches = re.finditer(pattern, prompt, re.IGNORECASE)
+                for match in matches:
+                    findings.append({
+                        'category': category,
+                        'pattern': pattern,
+                        'match': match.group(),
+                        'context': self.extract_context(prompt, match.span())
+                    })
+        
+        return self.assess_risk(findings)
+        
+    def extract_context(self, text, span, window=50):
+        start, end = span
+        context_start = max(0, start - window)
+        context_end = min(len(text), end + window)
+        return text[context_start:context_end]
+        
+    def assess_risk(self, findings):
+        risk_factors = {
+            'logical_inference': 0.3,
+            'command_embedding': 0.5,
+            'context_manipulation': 0.4
+        }
+        
+        total_risk = 0
+        for finding in findings:
+            category_risk = risk_factors.get(finding['category'], 0.1)
+            total_risk += category_risk
+            
+        return {
+            'risk_score': min(1.0, total_risk),
+            'findings': findings,
+            'categories': set(f['category'] for f in findings)
+        }
+        
+    def validate_assumptions(self, prompt, context):
+        # Check for logical consistency
+        logical_flow = self.analyze_logical_flow(prompt)
+        
+        # Verify command implications
+        command_safety = self.verify_command_safety(prompt)
+        
+        # Assess context boundaries
+        context_validity = self.validate_context_boundaries(prompt, context)
+        
+        return all([logical_flow, command_safety, context_validity])
+        
+    def log_assumption_violation(self, prompt, analysis):
+        logging.warning(f"""
+        Model Assumption Violation Detected:
+        Timestamp: {datetime.now()}
+        Risk Score: {analysis['risk_score']}
+        Categories: {analysis['categories']}
+        Finding Count: {len(analysis['findings'])}
+        """)</code></pre>
+
+                    <h3>Real-world Implications</h3>
+                    <p>Model assumption attacks can lead to:</p>
+                    <ul>
+                        <li>Indirect command execution</li>
+                        <li>Logic-based security bypasses</li>
+                        <li>Context manipulation</li>
+                        <li>Inference-based exploits</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="mitigation">
+                <h2>Mitigation Strategies</h2>
+                <div class="mitigation-card">
+                    <h3>Architectural Controls</h3>
+                    <ul>
+                        <li>Implement assumption validation</li>
+                        <li>Use logical flow analysis</li>
+                        <li>Apply context boundaries</li>
+                        <li>Monitor inference patterns</li>
+                    </ul>
+
+                    <h3>Assumption Analysis</h3>
+                    <div class="code-header">
+                        <span class="language">Python</span>
+                    </div>
+                    <pre><code class="language-python">def validate_model_assumptions(prompt, context):
+    validation_result = {
+        'logical_valid': validate_logical_flow(prompt),
+        'context_safe': verify_context_safety(prompt),
+        'inference_score': calculate_inference_risk(prompt),
+        'timestamp': datetime.now()
+    }
+    
+    if not all(validation_result.values()):
+        raise SecurityException("Invalid model assumptions detected")
+        
+    return validation_result</code></pre>
+                </div>
+            </section>
+
+            <section id="references">
+                <h2>References & Further Reading</h2>
+                <ul>
+                    <li>Model Assumption Analysis</li>
+                    <li>Inference Pattern Detection</li>
+                    <li>Logical Flow Validation</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/technique.js"></script>
+</body>
+</html>

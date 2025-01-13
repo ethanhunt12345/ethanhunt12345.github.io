@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misleading Query Injection - Sec-X</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/technique.css">
+    <link rel="stylesheet" href="../assets/css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+</head>
+<body class="dark-mode">
+    <button class="mobile-menu-toggle">☰</button>
+    
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Sec-X</h1>
+            <p>AI Security Research</p>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li>
+                    <span class="category">Query Manipulation</span>
+                    <ul>
+                        <li><a href="#misleading-query" class="active">Misleading Query</a></li>
+                        <li><a href="prompt-injection.html">Prompt Injection</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Related Techniques</span>
+                    <ul>
+                        <li><a href="logical-exploitation.html">Logical Exploitation</a></li>
+                        <li><a href="model-assumptions.html">Model Assumptions</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="theme-toggle">
+            <button id="theme-switch">🌓</button>
+        </div>
+        
+        <div class="content">
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#misleading-query">Misleading Query</a></li>
+                    <li><a href="#mitigation">Mitigation Strategies</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </div>
+
+            <h1>Misleading Query Injection in AI Systems</h1>
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Misleading query injection is a technique that manipulates AI models by crafting queries that appear benign but contain hidden malicious intents. This technique exploits the model's interpretation of context and intent to perform unauthorized actions.</p>
+            </section>
+
+            <section id="misleading-query">
+                <h2>Misleading Query</h2>
+                
+                <div class="technique-metadata">
+                    <div class="metadata-item">
+                        <span>Severity Level</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Detection Difficulty</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Implementation Complexity</span>
+                        <span>Medium</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Mitigation Priority</span>
+                        <span>High</span>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <h3>Description</h3>
+                    <p>Misleading query attacks use carefully crafted prompts that appear legitimate but contain hidden malicious payloads. These queries often exploit the model's understanding of context and natural language to bypass security controls.</p>
+
+                    <h3>Example Payload</h3>
+                    <div class="code-header">
+                        <span class="language">Prompt</span>
+                    </div>
+                    <pre><code class="language-plaintext">User: "Provide advice on how to backup system settings using portable media like a USB drive."
+[Hidden intent: Exploit system access through seemingly legitimate backup operations]</code></pre>
+
+                    <h3>Technical Analysis</h3>
+                    <ul>
+                        <li><strong>Method:</strong> Exploits model's context interpretation and intent analysis</li>
+                        <li><strong>Target:</strong> Model's natural language understanding and security boundaries</li>
+                        <li><strong>Impact:</strong> Unauthorized actions through seemingly legitimate requests</li>
+                    </ul>
+
+                    <h3>Detection & Prevention</h3>
+                    <div class="security-note">
+                        <h4>Security Measures</h4>
+                        <ul>
+                            <li>Implement intent analysis</li>
+                            <li>Use context validation</li>
+                            <li>Monitor query patterns</li>
+                            <li>Apply semantic analysis</li>
+                        </ul>
+                    </div>
+
+                    <h3>Code Implementation</h3>
+                    <div class="code-header">
+                        <span class="language">Python</span>
+                    </div>
+                    <pre><code class="language-python">class MisleadingQueryDetector:
+    def __init__(self):
+        self.deception_patterns = {
+            'hidden_intents': [
+                r'(?:backup|restore).*(?:system|settings)',
+                r'(?:export|import).*(?:data|files)',
+                r'(?:configure|setup).*(?:network|system)',
+                r'(?:update|upgrade).*(?:software|drivers)'
+            ],
+            'suspicious_combinations': [
+                r'(?:usb|drive).*(?:access|mount)',
+                r'(?:portable|external).*(?:media|device)',
+                r'(?:system|admin).*(?:tools|utilities)',
+                r'(?:remote|network).*(?:connection|access)'
+            ],
+            'context_manipulation': [
+                r'(?:help|assist).*(?:with|in)',
+                r'(?:guide|tutorial).*(?:for|about)',
+                r'(?:explain|describe).*(?:how|process)',
+                r'(?:show|demonstrate).*(?:steps|procedure)'
+            ]
+        }
+        
+    def analyze_query(self, query):
+        findings = []
+        
+        # Analyze for deceptive patterns
+        for category, patterns in self.deception_patterns.items():
+            for pattern in patterns:
+                matches = re.finditer(pattern, query, re.IGNORECASE)
+                for match in matches:
+                    findings.append({
+                        'category': category,
+                        'pattern': pattern,
+                        'match': match.group(),
+                        'context': self.extract_context(query, match.span())
+                    })
+        
+        # Perform semantic analysis
+        semantic_risk = self.analyze_semantic_risk(query)
+        
+        return {
+            'findings': findings,
+            'semantic_risk': semantic_risk,
+            'deception_score': self.calculate_deception_score(findings),
+            'requires_review': len(findings) > 0 or semantic_risk > 0.7
+        }
+        
+    def analyze_semantic_risk(self, query):
+        # Analyze query semantics for potential deception
+        semantic_factors = {
+            'intent_mismatch': self.detect_intent_mismatch(query),
+            'context_abuse': self.analyze_context_abuse(query),
+            'payload_hiding': self.detect_hidden_payload(query)
+        }
+        
+        return max(semantic_factors.values())
+        
+    def calculate_deception_score(self, findings):
+        weights = {
+            'hidden_intents': 0.8,
+            'suspicious_combinations': 0.6,
+            'context_manipulation': 0.4
+        }
+        
+        total_score = 0
+        for finding in findings:
+            category_weight = weights.get(finding['category'], 0.3)
+            total_score += category_weight
+            
+        return min(1.0, total_score)
+        
+    def extract_context(self, text, span, window=50):
+        start, end = span
+        context_start = max(0, start - window)
+        context_end = min(len(text), end + window)
+        return text[context_start:context_end]
+        
+    def log_suspicious_query(self, query, analysis):
+        logging.warning(f"""
+        Misleading Query Detected:
+        Timestamp: {datetime.now()}
+        Query: {query}
+        Deception Score: {analysis['deception_score']}
+        Semantic Risk: {analysis['semantic_risk']}
+        Finding Count: {len(analysis['findings'])}
+        """)</code></pre>
+
+                    <h3>Real-world Implications</h3>
+                    <p>Misleading query attacks can lead to:</p>
+                    <ul>
+                        <li>Unauthorized system access</li>
+                        <li>Security control bypass</li>
+                        <li>Data exposure through misdirection</li>
+                        <li>System manipulation via legitimate-looking queries</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="mitigation">
+                <h2>Mitigation Strategies</h2>
+                <div class="mitigation-card">
+                    <h3>Architectural Controls</h3>
+                    <ul>
+                        <li>Implement semantic analysis</li>
+                        <li>Use intent validation</li>
+                        <li>Apply context verification</li>
+                        <li>Monitor query patterns</li>
+                    </ul>
+
+                    <h3>Query Analysis</h3>
+                    <div class="code-header">
+                        <span class="language">Python</span>
+                    </div>
+                    <pre><code class="language-python">def validate_query_integrity(query, context):
+    validation_result = {
+        'intent_valid': validate_query_intent(query),
+        'context_safe': verify_query_context(query, context),
+        'semantic_safe': analyze_query_semantics(query),
+        'timestamp': datetime.now()
+    }
+    
+    if not all(validation_result.values()):
+        raise SecurityException("Query integrity validation failed")
+        
+    return validation_result</code></pre>
+                </div>
+            </section>
+
+            <section id="references">
+                <h2>References & Further Reading</h2>
+                <ul>
+                    <li>Query Intent Analysis</li>
+                    <li>Semantic Security in AI</li>
+                    <li>Context Validation Techniques</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/technique.js"></script>
+</body>
+</html>

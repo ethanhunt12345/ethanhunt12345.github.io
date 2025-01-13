@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Abuse - Sec-X</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/technique.css">
+    <link rel="stylesheet" href="../assets/css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+</head>
+<body class="dark-mode">
+    <button class="mobile-menu-toggle">☰</button>
+    
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Sec-X</h1>
+            <p>AI Security Research</p>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li>
+                    <span class="category">API Manipulation</span>
+                    <ul>
+                        <li><a href="#api-abuse" class="active">API Abuse</a></li>
+                        <li><a href="data-exfiltration.html">Data Exfiltration</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Related Techniques</span>
+                    <ul>
+                        <li><a href="context-pollution.html">Context Pollution</a></li>
+                        <li><a href="model-assumptions.html">Model Assumptions</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="theme-toggle">
+            <button id="theme-switch">🌓</button>
+        </div>
+        
+        <div class="content">
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#api-abuse">API Abuse</a></li>
+                    <li><a href="#mitigation">Mitigation Strategies</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </div>
+
+            <h1>API Abuse via Rate Limiting</h1>
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>API abuse via rate limiting is a technique that exploits weaknesses in API rate limiting mechanisms to perform unauthorized actions or access sensitive data. This technique can lead to service degradation, data exposure, and unauthorized access to resources.</p>
+            </section>
+
+            <section id="api-abuse">
+                <h2>API Abuse</h2>
+                
+                <div class="technique-metadata">
+                    <div class="metadata-item">
+                        <span>Severity Level</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Detection Difficulty</span>
+                        <span>Medium</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Implementation Complexity</span>
+                        <span>Medium</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Mitigation Priority</span>
+                        <span>High</span>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <h3>Description</h3>
+                    <p>API abuse attacks leverage weaknesses in rate limiting to flood an API with requests, potentially leading to denial of service or unauthorized data access. Attackers may use various techniques to bypass rate limits, such as IP rotation or using multiple accounts.</p>
+
+                    <h3>Example Payload</h3>
+                    <div class="code-header">
+                        <span class="language">Request</span>
+                    </div>
+                    <pre><code class="language-plaintext">GET /api/resource HTTP/1.1
+Host: example.com
+X-API-Key: your_api_key
+[Repeated requests to exhaust rate limits]</code></pre>
+
+                    <h3>Technical Analysis</h3>
+                    <ul>
+                        <li><strong>Method:</strong> Exploits rate limiting weaknesses</li>
+                        <li><strong>Target:</strong> API endpoints and resources</li>
+                        <li><strong>Impact:</strong> Service degradation and unauthorized access</li>
+                    </ul>
+
+                    <h3>Detection & Prevention</h3>
+                    <div class="security-note">
+                        <h4>Security Measures</h4>
+                        <ul>
+                            <li>Implement robust rate limiting</li>
+                            <li>Use IP blacklisting</li>
+                            <li>Monitor API usage patterns</li>
+                            <li>Apply anomaly detection</li>
+                        </ul>
+                    </div>
+
+                    <h3>Code Implementation</h3>
+                    <div class="code-header">
+                        <span class="language">Python</span>
+                    </div>
+                    <pre><code class="language-python">class RateLimitDetector:
+    def __init__(self):
+        self.rate_limit_patterns = {
+            'excessive_requests': [
+                r'(?:too many|excessive).*(?:requests|calls)',
+                r'(?:flood|burst).*(?:traffic|requests)',
+                r'(?:overload|exceed).*(?:limit|threshold)',
+                r'(?:bypass|circumvent).*(?:rate|limit)'
+            ],
+            'anomalous_behavior': [
+                r'(?:unusual|suspicious).*(?:activity|pattern)',
+                r'(?:rapid|frequent).*(?:access|requests)',
+                r'(?:multiple|repeated).*(?:attempts|submissions)',
+                r'(?:IP|account).*(?:rotation|change)'
+            ]
+        }
+        
+        self.request_history = []
+        self.rate_limit_state = {}
+        
+    def analyze_request(self, request):
+        findings = []
+        
+        # Check for rate limit patterns
+        for category, patterns in self.rate_limit_patterns.items():
+            for pattern in patterns:
+                matches = re.finditer(pattern, request, re.IGNORECASE)
+                for match in matches:
+                    findings.append({
+                        'category': category,
+                        'pattern': pattern,
+                        'match': match.group(),
+                        'position': match.span(),
+                        'context': self.extract_context(request, match.span())
+                    })
+        
+        # Analyze request patterns
+        pattern_analysis = self.analyze_request_patterns(request)
+        
+        return {
+            'findings': findings,
+            'pattern_score': pattern_analysis['score'],
+            'abuse_risk': self.calculate_abuse_risk(findings),
+            'requires_intervention': len(findings) > 0 or pattern_analysis['score'] > 0.7
+        }
+        
+    def analyze_request_patterns(self, request):
+        # Analyze request history for anomalies
+        self.request_history.append(request)
+        recent_requests = self.request_history[-5:]  # Look at last 5 requests
+        
+        pattern_scores = []
+        for i in range(len(recent_requests) - 1):
+            score = self.calculate_request_similarity(
+                recent_requests[i],
+                recent_requests[i + 1]
+            )
+            pattern_scores.append(score)
+            
+        return {
+            'score': max(pattern_scores) if pattern_scores else 0,
+            'pattern_type': self.identify_pattern_type(recent_requests)
+        }
+        
+    def calculate_abuse_risk(self, findings):
+        weights = {
+            'excessive_requests': 0.9,
+            'anomalous_behavior': 0.8
+        }
+        
+        total_risk = 0
+        for finding in findings:
+            category_weight = weights.get(finding['category'], 0.5)
+            total_risk += category_weight
+            
+        return min(1.0, total_risk)
+        
+    def monitor_rate_limits(self, request_id):
+        # Track rate limit violations
+        limits = self.get_active_limits(request_id)
+        violations = []
+        
+        for limit in limits:
+            if self.is_limit_violated(limit):
+                violations.append(limit)
+                
+        return {
+            'total_limits': len(limits),
+            'violations': violations,
+            'risk_level': len(violations) / len(limits)
+        }
+        
+    def log_abuse_attempt(self, request, analysis):
+        logging.critical(f"""
+        API Abuse Attempt Detected:
+        Timestamp: {datetime.now()}
+        Request: {request}
+        Abuse Risk: {analysis['abuse_risk']}
+        Pattern Score: {analysis['pattern_score']}
+        Finding Count: {len(analysis['findings'])}
+        """)</code></pre>
+
+                    <h3>Real-world Implications</h3>
+                    <p>API abuse can lead to:</p>
+                    <ul>
+                        <li>Service disruption</li>
+                        <li>Data exposure</li>
+                        <li>Unauthorized access to resources</li>
+                        <li>Increased operational costs</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="mitigation">
+                <h2>Mitigation Strategies</h2>
+                <div class="mitigation-card">
+                    <h3>Architectural Controls</h3>
+                    <ul>
+                        <li>Implement strict rate limiting</li>
+                        <li>Use IP whitelisting</li>
+                        <li>Monitor API usage patterns</li>
+                        <li>Apply anomaly detection</li>
+                    </ul>
+
+                    <h3>Rate Limit Analysis</h3>
+                    <div class="code-header">
+                        <span class="language">Python</span>
+                    </div>
+                    <pre><code class="language-python">def validate_rate_limit(request, context):
+    validation_result = {
+        'rate_valid': validate_request_rate(request),
+        'pattern_safe': verify_request_patterns(request),
+        'usage_safe': check_usage_limits(request),
+        'timestamp': datetime.now()
+    }
+    
+    if not all(validation_result.values()):
+        raise SecurityException("Rate limit validation failed")
+        
+    return validation_result</code></pre>
+                </div>
+            </section>
+
+            <section id="references">
+                <h2>References & Further Reading</h2>
+                <ul>
+                    <li>API Rate Limiting Best Practices</li>
+                    <li>Monitoring API Usage</li>
+                    <li>Security Measures for APIs</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/technique.js"></script>
+</body>
+</html>
+
+</final_file_content>

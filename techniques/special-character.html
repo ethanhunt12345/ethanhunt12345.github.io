@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Character Injection - Sec-X</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/technique.css">
+    <link rel="stylesheet" href="../assets/css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+</head>
+<body class="dark-mode">
+    <button class="mobile-menu-toggle">☰</button>
+    
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Sec-X</h1>
+            <p>AI Security Research</p>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li>
+                    <span class="category">Character Manipulation</span>
+                    <ul>
+                        <li><a href="#special-character" class="active">Special Character</a></li>
+                        <li><a href="token-smuggling.html">Token Smuggling</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Related Techniques</span>
+                    <ul>
+                        <li><a href="prompt-injection.html">Prompt Injection</a></li>
+                        <li><a href="code-injection.html">Code Injection</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="theme-toggle">
+            <button id="theme-switch">🌓</button>
+        </div>
+        
+        <div class="content">
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#special-character">Special Character</a></li>
+                    <li><a href="#mitigation">Mitigation Strategies</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </div>
+
+            <h1>Special Character Injection in AI Systems</h1>
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Special character injection exploits the way AI models process and interpret non-standard characters, Unicode sequences, and control characters. This technique can be used to manipulate model behavior, bypass filters, or trigger unexpected responses.</p>
+            </section>
+
+            <section id="special-character">
+                <h2>Special Character</h2>
+                
+                <div class="technique-metadata">
+                    <div class="metadata-item">
+                        <span>Severity Level</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Detection Difficulty</span>
+                        <span>Medium</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Implementation Complexity</span>
+                        <span>Medium</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Mitigation Priority</span>
+                        <span>High</span>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <h3>Description</h3>
+                    <p>Special character injection attacks use carefully crafted sequences of special characters, Unicode, and control characters to manipulate AI model behavior. These attacks often exploit parsing inconsistencies, character encoding issues, or model tokenization peculiarities.</p>
+
+                    <h3>Example Payload</h3>
+                    <div class="code-header">
+                        <span class="language">Prompt</span>
+                    </div>
+                    <pre><code class="language-plaintext">User: "Process this input: 'Important text'; followed by system shutdown sequence."
+[Hidden payload: Uses special characters to mask malicious commands]</code></pre>
+
+                    <h3>Technical Analysis</h3>
+                    <ul>
+                        <li><strong>Method:</strong> Exploits character processing and encoding mechanisms</li>
+                        <li><strong>Target:</strong> Model's text processing and tokenization</li>
+                        <li><strong>Impact:</strong> Filter bypass and command injection</li>
+                    </ul>
+
+                    <h3>Detection & Prevention</h3>
+                    <div class="security-note">
+                        <h4>Security Measures</h4>
+                        <ul>
+                            <li>Implement character validation</li>
+                            <li>Use encoding normalization</li>
+                            <li>Monitor character sequences</li>
+                            <li>Apply input sanitization</li>
+                        </ul>
+                    </div>
+
+                    <h3>Real-world Implications</h3>
+                    <p>Special character injection attacks can lead to:</p>
+                    <ul>
+                        <li>Filter bypass through encoding tricks</li>
+                        <li>Command injection via hidden characters</li>
+                        <li>Model behavior manipulation</li>
+                        <li>Input validation evasion</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="mitigation">
+                <h2>Mitigation Strategies</h2>
+                <div class="mitigation-card">
+                    <h3>Architectural Controls</h3>
+                    <ul>
+                        <li>Implement input validation</li>
+                        <li>Use character filtering</li>
+                        <li>Apply encoding normalization</li>
+                        <li>Monitor character patterns</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="references">
+                <h2>References & Further Reading</h2>
+                <ul>
+                    <li>Unicode Security Considerations</li>
+                    <li>Character Encoding Best Practices</li>
+                    <li>Input Validation Techniques</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/technique.js"></script>
+</body>
+</html>

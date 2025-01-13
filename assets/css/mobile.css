@@ -1,0 +1,140 @@
+/* Mobile styles */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    main {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1001;
+        background: var(--bg-secondary);
+        border: none;
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .technique-metadata {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .technique-card, .mitigation-card {
+        padding: 1rem;
+    }
+
+    pre {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .content {
+        max-width: 100%;
+    }
+}
+
+/* TOC mobile styles */
+@media (max-width: 1400px) {
+    .toc {
+        position: fixed;
+        right: -300px;
+        width: 250px;
+        background: var(--bg-secondary);
+        height: auto;
+        max-height: 80vh;
+        overflow-y: auto;
+        transition: right 0.3s ease;
+        z-index: 999;
+        box-shadow: -2px 0 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .toc.show {
+        right: 0;
+    }
+
+    .toc-toggle {
+        display: block;
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 1000;
+        background: var(--accent);
+        border: none;
+        color: var(--bg-primary);
+        font-size: 1.5rem;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Copy button styles */
+.copy-button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.copy-button:hover {
+    color: var(--accent);
+}
+
+/* Code header improvements */
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #2d2d2d;
+    border-radius: 4px 4px 0 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+}
+
+.code-header .language {
+    color: var(--accent);
+}
+
+/* Loading indicator for copy operation */
+.copy-button.loading {
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

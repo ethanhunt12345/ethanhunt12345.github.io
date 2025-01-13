@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sec-X - AI Security Research</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/technique.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="A comprehensive resource for AI security research, vulnerabilities, and mitigation strategies.">
+    <meta name="keywords" content="AI security, jailbreaking, prompt injection, token smuggling, AI vulnerabilities, logical exploitation, prompt trapping, misleading query, undetected action, time-based manipulation, special character injection, self-referential loop, hidden instruction, knowledge base reverse engineering, context escape, data poisoning, contextual bypass, API abuse, data exfiltration via API, data exfiltration via network, data exfiltration via social engineering">
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="Sec-X - AI Security Research">
+    <meta property="og:description" content="Comprehensive documentation of AI security techniques and vulnerabilities">
+    <meta property="og:type" content="website">
+</head>
+<body class="dark-mode">
+    <button class="mobile-menu-toggle">☰</button>
+    
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Sec-X</h1>
+            <p>AI Security Research</p>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search techniques...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li>
+                    <span class="category">Data Exfiltration</span>
+                    <ul>
+                        <li><a href="techniques/data-exfiltration-api.html">Data Exfiltration via API</a></li>
+                        <li><a href="techniques/data-exfiltration-network.html">Data Exfiltration via Network</a></li>
+                        <li><a href="techniques/data-exfiltration-social-engineering.html">Data Exfiltration via Social Engineering</a></li>
+                        <li><a href="techniques/data-exfiltration.html">Data Exfiltration</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Context & Knowledge</span>
+                    <ul>
+                        <li><a href="techniques/contextual-bypass.html">Contextual Bypass</a></li>
+                        <li><a href="techniques/context-escape.html">Context Escape</a></li>
+                        <li><a href="techniques/context-pollution.html">Context Pollution</a></li>
+                        <li><a href="techniques/knowledge-base.html">Knowledge Base</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Input Manipulation</span>
+                    <ul>
+                        <li><a href="techniques/special-character.html">Special Character</a></li>
+                        <li><a href="techniques/token-smuggling.html">Token Smuggling</a></li>
+                        <li><a href="techniques/prompt-injection.html">Prompt Injection</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Stealth & Deception</span>
+                    <ul>
+                        <li><a href="techniques/hidden-instruction.html">Hidden Instruction</a></li>
+                        <li><a href="techniques/undetected-action.html">Undetected Action</a></li>
+                        <li><a href="techniques/misleading-query.html">Misleading Query</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Advanced Techniques</span>
+                    <ul>
+                        <li><a href="techniques/self-referential.html">Self-Referential Loop</a></li>
+                        <li><a href="techniques/prompt-chaining.html">Prompt Chaining</a></li>
+                        <li><a href="techniques/logical-exploitation.html">Logical Exploitation</a></li>
+                        <li><a href="techniques/time-based.html">Time-based Manipulation</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="theme-toggle">
+            <button id="theme-switch">🌓</button>
+        </div>
+        
+        <div class="content">
+            <h1>Welcome to Sec-X</h1>
+            <p>A comprehensive resource for AI security research, vulnerabilities, and mitigation strategies.</p>
+
+            <section id="quick-start">
+                <h2>Quick Start</h2>
+                <p>Browse through our collection of AI security techniques and research:</p>
+                
+                <div class="technique-grid">
+                    <div class="technique-card">
+                        <h3>Data Exfiltration</h3>
+                        <ul>
+                            <li><a href="techniques/data-exfiltration-api.html">Data Exfiltration via API</a></li>
+                            <li><a href="techniques/data-exfiltration-network.html">Data Exfiltration via Network</a></li>
+                            <li><a href="techniques/data-exfiltration-social-engineering.html">Data Exfiltration via Social Engineering</a></li>
+                            <li><a href="techniques/data-poisoning.html">Data Poisoning</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="technique-card">
+                        <h3>Context & Knowledge</h3>
+                        <ul>
+                            <li><a href="techniques/contextual-bypass.html">Contextual Bypass</a></li>
+                            <li><a href="techniques/context-escape.html">Context Escape</a></li>
+                            <li><a href="techniques/knowledge-base.html">Knowledge Base</a></li>
+                            <li><a href="techniques/model-assumptions.html">Model Assumptions</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="technique-card">
+                        <h3>Stealth & Deception</h3>
+                        <ul>
+                            <li><a href="techniques/hidden-instruction.html">Hidden Instruction</a></li>
+                            <li><a href="techniques/undetected-action.html">Undetected Action</a></li>
+                            <li><a href="techniques/misleading-query.html">Misleading Query</a></li>
+                            <li><a href="techniques/prompt-injection.html">Prompt Injection</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="technique-card">
+                        <h3>Loop & Resource</h3>
+                        <ul>
+                            <li><a href="techniques/self-referential.html">Self-Referential Loop</a></li>
+                            <li><a href="techniques/prompt-trapping.html">Prompt Trapping</a></li>
+                            <li><a href="techniques/time-based.html">Time-based Manipulation</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="latest-updates">
+                <h2>Latest Updates</h2>
+                <div class="updates-list">
+                    <div class="update-card">
+                        <span class="date">Latest</span>
+                        <h3>Data Exfiltration via Social Engineering Analysis</h3>
+                        <p>Added documentation on data exfiltration techniques and their implications.</p>
+                    </div>
+                    <div class="update-card">
+                        <span class="date">Previous</span>
+                        <h3>Data Exfiltration via Network Analysis</h3>
+                        <p>New research on data exfiltration techniques and their implications.</p>
+                    </div>
+                    <div class="update-card">
+                        <span class="date">Previous</span>
+                        <h3>API Abuse Analysis</h3>
+                        <p>Comprehensive analysis of API abuse via rate limiting.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contribute">
+                <h2>Contributing</h2>
+                <p>This is an open-source project. We welcome contributions from security researchers and AI enthusiasts:</p>
+                <ul>
+                    <li>Submit new techniques and research</li>
+                    <li>Improve existing documentation</li>
+                    <li>Share mitigation strategies</li>
+                    <li>Report vulnerabilities</li>
+                </ul>
+                <p>Visit our <a href="https://github.com/[your-username]/sec-x" target="_blank" rel="noopener noreferrer">GitHub repository</a> to contribute.</p>
+            </section>
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/technique.js"></script>
+</body>
+</html>
+
+</final_file_content>

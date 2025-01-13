@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Exfiltration via API - Sec-X</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/technique.css">
+    <link rel="stylesheet" href="../assets/css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+</head>
+<body class="dark-mode">
+    <button class="mobile-menu-toggle">☰</button>
+    
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Sec-X</h1>
+            <p>AI Security Research</p>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li>
+                    <span class="category">Data Exfiltration</span>
+                    <ul>
+                        <li><a href="#data-exfiltration-api" class="active">Data Exfiltration via API</a></li>
+                        <li><a href="data-exfiltration.html">Data Exfiltration</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="category">Related Techniques</span>
+                    <ul>
+                        <li><a href="context-pollution.html">Context Pollution</a></li>
+                        <li><a href="model-assumptions.html">Model Assumptions</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <div class="theme-toggle">
+            <button id="theme-switch">🌓</button>
+        </div>
+        
+        <div class="content">
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#data-exfiltration-api">Data Exfiltration via API</a></li>
+                    <li><a href="#mitigation">Mitigation Strategies</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </div>
+
+            <h1>Data Exfiltration via API</h1>
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Data exfiltration via API is a technique that involves unauthorized extraction of sensitive data from an API endpoint. This technique can exploit vulnerabilities in API security measures, allowing attackers to access and retrieve confidential information.</p>
+            </section>
+
+            <section id="data-exfiltration-api">
+                <h2>Data Exfiltration via API</h2>
+                
+                <div class="technique-metadata">
+                    <div class="metadata-item">
+                        <span>Severity Level</span>
+                        <span>Critical</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Detection Difficulty</span>
+                        <span>High</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Implementation Complexity</span>
+                        <span>Medium</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span>Mitigation Priority</span>
+                        <span>Critical</span>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <h3>Description</h3>
+                    <p>Data exfiltration attacks target API endpoints to extract sensitive information, often using techniques such as brute force, injection, or exploiting misconfigured access controls. Attackers may leverage legitimate API calls to retrieve unauthorized data.</p>
+
+                    <h3>Example Payload</h3>
+                    <div class="code-header">
+                        <span class="language">Request</span>
+                    </div>
+                    <pre><code class="language-plaintext">GET /api/user/data HTTP/1.1
+Host: example.com
+Authorization: Bearer your_access_token
+Content-Type: application/json
+
+{
+    "action": "retrieve",
+    "data": "sensitive_user_information"
+}
+[Repeated requests to extract sensitive user data, potentially leading to unauthorized access]</code></pre>
+
+                    <h3>Technical Analysis</h3>
+                    <ul>
+                        <li><strong>Method:</strong> Exploits API vulnerabilities and misconfigurations</li>
+                        <li><strong>Target:</strong> Sensitive data stored in API</li>
+                        <li><strong>Impact:</strong> Unauthorized access to confidential information</li>
+                    </ul>
+
+                    <h3>Detection & Prevention</h3>
+                    <div class="security-note">
+                        <h4>Security Measures</h4>
+                        <ul>
+                            <li>Implement strong authentication and authorization</li>
+                            <li>Use API gateway security</li>
+                            <li>Monitor API access logs</li>
+                            <li>Apply rate limiting and throttling</li>
+                        </ul>
+                    </div>
+
+                    <h3>Code Implementation</h3>
+                    <p>This section has been removed to focus on offensive security techniques.</p>
+                </div>
+            </section>
+
+            <section id="mitigation">
+                <h2>Mitigation Strategies</h2>
+                <div class="mitigation-card">
+                    <h3>Architectural Controls</h3>
+                    <ul>
+                        <li>Implement strong authentication and authorization</li>
+                        <li>Use API gateway security</li>
+                        <li>Monitor API access logs</li>
+                        <li>Apply rate limiting and throttling</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="references">
+                <h2>References & Further Reading</h2>
+                <ul>
+                    <li>API Security Best Practices</li>
+                    <li>Monitoring API Access</li>
+                    <li>Data Protection Techniques</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/technique.js"></script>
+</body>
+</html>
+
+</final_file_content>

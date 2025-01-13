@@ -1,0 +1,177 @@
+/* Home page specific styles */
+
+.technique-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.technique-grid .technique-card {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #3d3d3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.technique-grid .technique-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.technique-grid .technique-card h3 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.technique-grid .technique-card ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.technique-grid .technique-card li {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.technique-grid .technique-card li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+.technique-grid .technique-card a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.technique-grid .technique-card a:hover {
+    color: var(--accent);
+}
+
+/* Updates section */
+.updates-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.update-card {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #3d3d3d;
+    position: relative;
+    overflow: hidden;
+}
+
+.update-card .date {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--accent);
+    color: var(--bg-primary);
+    padding: 0.3rem 1rem;
+    font-size: 0.8rem;
+    border-radius: 0 8px 0 8px;
+}
+
+.update-card h3 {
+    color: var(--accent);
+    margin: 1rem 0;
+    font-size: 1.1rem;
+}
+
+.update-card p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Contribute section */
+#contribute {
+    background: rgba(0, 255, 157, 0.1);
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 3rem 0;
+}
+
+#contribute h2 {
+    color: var(--accent);
+    margin-top: 0;
+}
+
+#contribute ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+#contribute li {
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+#contribute li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+#contribute a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent);
+}
+
+#contribute a:hover {
+    border-bottom-style: solid;
+}
+
+/* Light mode adjustments */
+body.light-mode .technique-grid .technique-card,
+body.light-mode .update-card {
+    border-color: #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .technique-grid,
+    .updates-list {
+        grid-template-columns: 1fr;
+    }
+
+    #contribute {
+        padding: 1.5rem;
+    }
+
+    #contribute ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animation for cards */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.technique-card,
+.update-card {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.technique-card:nth-child(2) { animation-delay: 0.1s; }
+.technique-card:nth-child(3) { animation-delay: 0.2s; }
+.update-card:nth-child(2) { animation-delay: 0.1s; }
+.update-card:nth-child(3) { animation-delay: 0.2s; }
