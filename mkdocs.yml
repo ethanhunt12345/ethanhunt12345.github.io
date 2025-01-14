@@ -1,0 +1,51 @@
+site_name: Sec-X
+site_description: AI Security and LLM Prompts Documentation
+site_url: https://sec-x.github.io/
+repo_url: https://github.com/sec-x/sec-x.github.io
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: indigo
+    accent: blue
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - def_list
+  - tables
+  - footnotes
+
+nav:
+  - Home: index.md
+  - Prompt Injection:
+    - Introduction: prompt-injection/introduction.md
+    - Types:
+      - Hallucination: prompt-injection/types/hallucination.md
+      - Time Traversal: prompt-injection/types/time-traversal.md
+      - Roleplay: prompt-injection/types/roleplay.md
+      - Jailbreak: prompt-injection/types/jailbreak.md
+      - Code Execution: prompt-injection/types/code-execution.md
+      - Social Engineering: prompt-injection/types/social-engineering.md
+      - Information Leakage: prompt-injection/types/information-leakage.md
+      - Data Poisoning: prompt-injection/types/data-poisoning.md
+      - Context Confusion: prompt-injection/types/context-confusion.md
+      - Recursive: prompt-injection/types/recursive.md
+    - Mitigation: prompt-injection/mitigation.md
